@@ -27,6 +27,11 @@ Things you may want to cover:
 | first_name_reading        | string  | null: false               |
 | birth_date                | integer | null: false               |
 
+### Association
+- has_many :item
+- has_many :shipping_to
+- has_many :purchase_records
+
 ## items テーブル
 
 | Column               | Type       |Options                         |
@@ -41,6 +46,10 @@ Things you may want to cover:
 | price                | integer    | null: false                    |
 | user                 | references | null; false, foreign_key: true |
 
+### Association
+- belongs_to :user
+- has_many :purchase_records
+
 ## shipping_to テーブル
 
 | Column             | Type       | Options                        |
@@ -53,12 +62,21 @@ Things you may want to cover:
 | phone_number       | integer    | null:false                     |
 | user               | references | null:false, foreign_key: true  |
 
+### Association
+- belongs_to :user
+- has_one :purchase_records
+
 ## purchase_records テーブル
 
 | Column       | Type           | Options                             |
 | ------------ | -------------- | ----------------------------------- |
 | user         | references     | null: false, foreign_key: true      |
 | item         | references     | null: false, foreign_key: true      |
+
+### Association
+- belongs_to :item
+- belongs_to :user
+- belongs_to :shipping_to
 
 * Database initialization
 
