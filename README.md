@@ -28,7 +28,7 @@ Things you may want to cover:
 | birthday                  | date    | null: false               |
 
 ### Association
-- has_many :item
+- has_many :items
 - has_many :purchase_records
 
 ## items テーブル
@@ -43,11 +43,11 @@ Things you may want to cover:
 | prefecture_id        | integer    | null:false                     |
 | days_required_id     | integer    | null: false                    |
 | price                | integer    | null: false                    |
-| user_id              | references | null; false, foreign_key: true |
+| user                 | references | null; false, foreign_key: true |
 
 ### Association
-- belongs_to :user
-- has_many :purchase_records
+- belongs_to :users
+- has_one :purchase_records
 
 ## shipping_to テーブル
 
@@ -59,22 +59,23 @@ Things you may want to cover:
 | address            | string     | null: false                    |
 | building_name      | string     |                                |
 | phone_number       | string     | null:false                     |
+| purchase_recode    | references | null:false, foreign_key: true  |
 
 ### Association
-- has_one :purchase_records
+- belongs_to :purchase_records
 
 
 ## purchase_records テーブル
 
 | Column       | Type           | Options                             |
 | ------------ | -------------- | ----------------------------------- |
-| user_id      | references     | null: false, foreign_key: true      |
-| item_id      | references     | null: false, foreign_key: true      |
+| user         | references     | null: false, foreign_key: true      |
+| item         | references     | null: false, foreign_key: true      |
 
 ### Association
-- belongs_to :item
-- belongs_to :user
-- belongs_to :shipping_to
+- belongs_to :items
+- belongs_to :users
+- has_one :shipping_to
 
 * Database initialization
 
