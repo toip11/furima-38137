@@ -25,7 +25,7 @@ Things you may want to cover:
 | first_name                | string  | null: false               |
 | last_name_reading         | string  | null: false               |
 | first_name_reading        | string  | null: false               |
-| birth_date                | integer | null: false               |
+| birthday                  | date    | null: false               |
 
 ### Association
 - has_many :item
@@ -38,11 +38,11 @@ Things you may want to cover:
 | -------------------- | ---------- |------------------------------- |
 | name                 | string     | null: false                    |
 | explanation          | text       | null:false                     |
-| category             | integer    | null:false                     |
-| situation            | integer    | null: false                    |
-| delivery_charge      | integer    | null: false                    |
-| sender_area          | integer    | null:false                     |
-| days_required        | integer    | null: false                    |
+| category_id          | integer    | null:false                     |
+| situation_id         | integer    | null: false                    |
+| delivery_charge_id   | integer    | null: false                    |
+| prefecture_id        | integer    | null:false                     |
+| days_required_id     | integer    | null: false                    |
 | price                | integer    | null: false                    |
 | user                 | references | null; false, foreign_key: true |
 
@@ -54,17 +54,18 @@ Things you may want to cover:
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| postal_code        | integer    | null: false                    |
-| prefectures        | integer    | null: false                    |
+| postal_code        | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | municipality       | string     | null:false                     |
 | address            | string     | null: false                    |
-| building_name      | string     | null: false                    |
-| phone_number       | integer    | null:false                     |
+| building_name      | string     |                                |
+| phone_number       | string     | null:false                     |
 | user               | references | null:false, foreign_key: true  |
 
 ### Association
 - belongs_to :user
 - has_one :purchase_records
+
 
 ## purchase_records テーブル
 
