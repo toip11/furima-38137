@@ -46,10 +46,10 @@ Things you may want to cover:
 | user                 | references | null; false, foreign_key: true |
 
 ### Association
-- belongs_to :users
-- has_one :purchase_records
+- belongs_to :user
+- has_one :purchase_record
 
-## shipping_to テーブル
+## shipping_tos テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
@@ -59,10 +59,10 @@ Things you may want to cover:
 | address            | string     | null: false                    |
 | building_name      | string     |                                |
 | phone_number       | string     | null:false                     |
-| purchase_recode    | references | null:false, foreign_key: true  |
+| purchase_record    | references | null:false, foreign_key: true  |
 
 ### Association
-- belongs_to :purchase_records
+- belongs_to :purchase_record
 
 
 ## purchase_records テーブル
@@ -73,8 +73,8 @@ Things you may want to cover:
 | item         | references     | null: false, foreign_key: true      |
 
 ### Association
-- belongs_to :items
-- belongs_to :users
+- belongs_to :item
+- belongs_to :user
 - has_one :shipping_to
 
 * Database initialization
