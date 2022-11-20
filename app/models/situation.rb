@@ -13,4 +13,3 @@ class Situation < ActiveHash::Base
   has_many :items
 
   end
-  
