@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    item.destroy
+    item.destroy(move_to_index)
     redirect_to root_path
   end
 
