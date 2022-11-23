@@ -34,18 +34,26 @@ class ItemsController < ApplicationController
     end
   end
 
-  private
-  def item_params
-    params.require(:item).permit(:name, :explanation, :category_id, :situation_id, :delivery_charge_id, :prefecture_id, :days_required_id, :price, :image).merge(user_id: current_user.id)
+  def destroy
+    item = Item.find(params[:id])
+    if item.user_id == current_user.id
+      item.destroy
+    end
+    redirect_to root_path
   end
 
-  def move_to_index
-    unless user_signed_in? && current_user.id == @item.user_id
-      redirect_to action: :index
+  private
+    def item_params
+      params.require(:item).permit(:name, :explanation, :category_id, :situation_id, :delivery_charge_id, :prefecture_id, :days_required_id, :price, :image).merge(user_id: current_user.id)
+    end
+
+    def move_to_index
+      unless user_signed_in? && current_user.id == @item.user_id
+        redirect_to action: :index
+      end
+    end
+
+    def item_find
+      @item = Item.find(params[:id])
     end
   end
-
-  def item_find
-    @item = Item.find(params[:id])
-  end
-end
