@@ -1,6 +1,6 @@
-class PurchaseRecord < ApplicationRecord
-  belongs_to :item
-  belongs_to :user
+class ShippingTo < ApplicationRecord
+  belongs_to :purchase_record
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
-  has_one :shipping_to
 end
