@@ -2,12 +2,14 @@ class ShippingTosController < ApplicationController
 
   def index
     @item = Item.find(params[:item_id])
+    @shipping_to_purchase_record = PurchaseRecordShippingTo.new(shipping_to_params)
   end
 
   def create
-    @shippings_to_purchase_record = PurchaseRecordShippingTo.new(shipping_to_params)
-    if @shippings_to_purchase_record.valid?
-      @shippings_to_purchase_record.save
+    @item = Item.find(params[:item_id])
+    @shipping_to_purchase_record = PurchaseRecordShippingTo.new(shipping_to_params)
+    if @shipping_to_purchase_record.valid?
+      @shipping_to_purchase_record.save
       redirect_to root_path
     else
       render :index
