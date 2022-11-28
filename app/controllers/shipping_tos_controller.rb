@@ -1,4 +1,6 @@
 class ShippingTosController < ApplicationController
+  before_action :item_find, only: [:index, :create]
+  before_action :move_to_index, only: :index
 
   def index
     @item = Item.find(params[:item_id])
@@ -29,5 +31,16 @@ class ShippingTosController < ApplicationController
       card: shipping_to_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_to_index
+    @item = Item.find(params[:item_id])
+    if PurchaseRecord.exists?(item_id: @item.id)
+        redirect_to controller: :items, action: :index
+    end
+  end
+
+  def item_find
+    @item = Item.find(params[:item_id])
   end
 end
