@@ -4,12 +4,10 @@ class ShippingTosController < ApplicationController
   before_action :move_to_index, only: :index
 
   def index
-    @item = Item.find(params[:item_id])
     @shipping_to_purchase_record = PurchaseRecordShippingTo.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @shipping_to_purchase_record = PurchaseRecordShippingTo.new(shipping_to_params)
     if @shipping_to_purchase_record.valid?
       pay_item
@@ -35,7 +33,6 @@ class ShippingTosController < ApplicationController
   end
 
   def move_to_index
-    @item = Item.find(params[:item_id])
     if PurchaseRecord.exists?(item_id: @item.id) || current_user.id == @item.user_id
       redirect_to controller: :items, action: :index
     end

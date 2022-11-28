@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ShippingTo, type: :model do
-  describe '寄付情報の保存' do
+  describe '購入情報の保存' do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
@@ -63,6 +63,21 @@ RSpec.describe ShippingTo, type: :model do
         @purchase_record_shipping_to.phone_number = '12345678901234567890'
         @purchase_record_shipping_to.valid?
         expect(@purchase_record_shipping_to.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
+      end
+      it 'tokenが空では購入できない' do
+        @purchase_record_shipping_to.token = ''
+        @purchase_record_shipping_to.valid?
+        expect(@purchase_record_shipping_to.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'ユーザー情報が空では保存できない' do
+        @purchase_record_shipping_to.user_id = nil
+        @purchase_record_shipping_to.valid?
+        expect(@purchase_record_shipping_to.errors.full_messages).to include("User can't be blank")
+      end
+      it '商品情報が空では保存できない' do
+        @purchase_record_shipping_to.item_id = nil
+        @purchase_record_shipping_to.valid?
+        expect(@purchase_record_shipping_to.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

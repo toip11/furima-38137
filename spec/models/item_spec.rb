@@ -47,6 +47,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Delivery charge must be other than 1')
       end
       it '発送元の地域が「---」では保存できない' do
+        binding.pry
         @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
