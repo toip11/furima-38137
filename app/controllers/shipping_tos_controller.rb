@@ -20,12 +20,15 @@ class ShippingTosController < ApplicationController
   end
 
   private
+
   def shipping_to_params
-    params.require(:purchase_record_shipping_to).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_record_shipping_to).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item[:price],
       card: shipping_to_params[:token],
@@ -35,9 +38,9 @@ class ShippingTosController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:item_id])
-    if PurchaseRecord.exists?(item_id: @item.id)
-        redirect_to controller: :items, action: :index
-    end
+    return unless PurchaseRecord.exists?(item_id: @item.id)
+
+    redirect_to controller: :items, action: :index
   end
 
   def item_find

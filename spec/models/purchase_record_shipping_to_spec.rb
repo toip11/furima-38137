@@ -5,7 +5,7 @@ RSpec.describe ShippingTo, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
-      @purchase_record_shipping_to = FactoryBot.build(:purchase_record_shipping_to, user_id: user.id, item_id:item.id)
+      @purchase_record_shipping_to = FactoryBot.build(:purchase_record_shipping_to, user_id: user.id, item_id: item.id)
       sleep 0.1
     end
 
@@ -27,17 +27,17 @@ RSpec.describe ShippingTo, type: :model do
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @purchase_record_shipping_to.postal_code = '1234567'
         @purchase_record_shipping_to.valid?
-        expect(@purchase_record_shipping_to.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@purchase_record_shipping_to.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
         @purchase_record_shipping_to.prefecture_id = ''
         @purchase_record_shipping_to.valid?
-        expect(@purchase_record_shipping_to.errors.full_messages).to include("Prefecture is not a number")
+        expect(@purchase_record_shipping_to.errors.full_messages).to include('Prefecture is not a number')
       end
-      it "prefectureが「---」では保存できない" do
+      it 'prefectureが「---」では保存できない' do
         @purchase_record_shipping_to.prefecture_id = 1
         @purchase_record_shipping_to.valid?
-        expect(@purchase_record_shipping_to.errors.full_messages).to include("Prefecture must be other than 1")
+        expect(@purchase_record_shipping_to.errors.full_messages).to include('Prefecture must be other than 1')
       end
       it 'municipalityが空では購入できないこと' do
         @purchase_record_shipping_to.municipality = ''
@@ -57,12 +57,12 @@ RSpec.describe ShippingTo, type: :model do
       it 'phone_numberが10桁未満では購入できない' do
         @purchase_record_shipping_to.phone_number = '1'
         @purchase_record_shipping_to.valid?
-        expect(@purchase_record_shipping_to.errors.full_messages).to include("Phone number is too short (minimum is 10 characters)")
+        expect(@purchase_record_shipping_to.errors.full_messages).to include('Phone number is too short (minimum is 10 characters)')
       end
       it 'phone_numberが11桁以上では購入できない' do
         @purchase_record_shipping_to.phone_number = '12345678901234567890'
         @purchase_record_shipping_to.valid?
-        expect(@purchase_record_shipping_to.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+        expect(@purchase_record_shipping_to.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
     end
   end
