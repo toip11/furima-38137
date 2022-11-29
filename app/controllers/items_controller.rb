@@ -47,8 +47,8 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    if PurchaseRecord.exists?(item_id: @item.id) || current_user.id =! @item.user_id
-        redirect_to action: :index
+    if PurchaseRecord.exists?(item_id: @item.id) || @item.user_id != current_user.id
+      redirect_to action: :index
     end
   end
 
